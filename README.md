@@ -11,4 +11,5 @@ docker run -d --name=ai -it -p 8000-8020:8000-8020 \
      store/marklogicdb/marklogic-server-centos:10.0-1.1-dev
 
 # Starting the data hub framework
-` java -jar marklogic-datahb-5.0.2.war
+` java -jar marklogic-datahub-5.0.2.war
+
