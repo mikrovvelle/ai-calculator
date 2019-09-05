@@ -1,0 +1,16 @@
+{
+  "cbs_index" : {
+    "x" : 202,
+    "y" : 182,
+    "width" : 350,
+    "height" : 144,
+    "vertices" : { }
+  },
+  "object_sold" : {
+    "x" : 859,
+    "y" : 207,
+    "width" : 372,
+    "height" : 365,
+    "vertices" : { }
+  }
+}

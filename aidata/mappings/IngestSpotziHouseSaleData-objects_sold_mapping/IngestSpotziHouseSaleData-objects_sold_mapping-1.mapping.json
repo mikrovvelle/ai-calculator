@@ -1,0 +1,47 @@
+{
+  "language" : "zxx",
+  "name" : "IngestSpotziHouseSaleData-objects_sold_mapping",
+  "description" : "",
+  "version" : 1,
+  "targetEntityType" : "http://example.org/object_sold-0.0.1/object_sold",
+  "sourceContext" : "/",
+  "sourceURI" : "/MarkLogic/Projects/ai-calculator/data/SpotziHouseSales/c02f4d35-3358-48c5-b348-7bd5fb2ce64d.json",
+  "properties" : {
+    "rooms" : {
+      "sourcedFrom" : "rooms"
+    },
+    "city" : {
+      "sourcedFrom" : "city"
+    },
+    "date_listed" : {
+      "sourcedFrom" : "listedsince"
+    },
+    "postalcode" : {
+      "sourcedFrom" : "postalcode"
+    },
+    "streetnr" : {
+      "sourcedFrom" : "housenr"
+    },
+    "price" : {
+      "sourcedFrom" : "price"
+    },
+    "id" : {
+      "sourcedFrom" : "cartodb_id"
+    },
+    "square_footage_lot" : {
+      "sourcedFrom" : "lotsize"
+    },
+    "broker" : {
+      "sourcedFrom" : "broker"
+    },
+    "streetnr_ext" : {
+      "sourcedFrom" : "housenrext"
+    },
+    "square_footage_object" : {
+      "sourcedFrom" : "area"
+    },
+    "date_sold" : {
+      "sourcedFrom" : "dateofsale"
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "info" : {
+    "title" : "object_sold",
+    "version" : "0.0.1",
+    "baseUri" : "http://example.org/"
+  },
+  "definitions" : {
+    "object_sold" : {
+      "primaryKey" : "id",
+      "required" : [ ],
+      "pii" : [ ],
+      "elementRangeIndex" : [ ],
+      "rangeIndex" : [ ],
+      "wordLexicon" : [ ],
+      "properties" : {
+        "id" : {
+          "datatype" : "string",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "postalcode" : {
+          "datatype" : "string",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "streetnr" : {
+          "datatype" : "string",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "streetnr_ext" : {
+          "datatype" : "string",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "city" : {
+          "datatype" : "string",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "price" : {
+          "datatype" : "int",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "rooms" : {
+          "datatype" : "int"
+        },
+        "square_footage_object" : {
+          "datatype" : "int"
+        },
+        "square_footage_lot" : {
+          "datatype" : "int"
+        },
+        "date_listed" : {
+          "datatype" : "date"
+        },
+        "date_sold" : {
+          "datatype" : "date"
+        },
+        "broker" : {
+          "datatype" : "string",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        }
+      }
+    }
+  }
+}

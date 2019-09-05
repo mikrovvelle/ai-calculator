@@ -1,0 +1,26 @@
+{
+  "info" : {
+    "title" : "cbs_index",
+    "version" : "0.0.1",
+    "baseUri" : "http://example.org/"
+  },
+  "definitions" : {
+    "cbs_index" : {
+      "primaryKey" : "year",
+      "required" : [ ],
+      "pii" : [ ],
+      "elementRangeIndex" : [ ],
+      "rangeIndex" : [ ],
+      "wordLexicon" : [ ],
+      "properties" : {
+        "year" : {
+          "datatype" : "int"
+        },
+        "priceindex" : {
+          "datatype" : "decimal",
+          "description" : "Compared to previous record"
+        }
+      }
+    }
+  }
+}
