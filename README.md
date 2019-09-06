@@ -13,3 +13,32 @@ docker run -d --name=ai -it -p 8000-8020:8000-8020 \
 # Starting the data hub framework
 ` java -jar marklogic-datahub-5.0.2.war
 
+# Ingest CBS data
+Run the cbs_index flow
+
+# Retrieve from Data Hub
+## Convert SQL to Optic plan
+const op = require('/MarkLogic/optic');
+op.fromSQL("select * from cbs_index").export();
+## Get the data from the Rows API
+POST http://localhost:8011/v1/rows
+{
+"$optic": {
+"ns": "op", 
+"fn": "operators", 
+"args": [
+{
+"ns": "op", 
+"fn": "from-sql", 
+"args": [
+"select * from cbs_index", 
+null
+]
+}
+]
+}
+}
+Accept: 'text/csv'
+
+# Run Jupyter notebook
+` jupyter notebook
