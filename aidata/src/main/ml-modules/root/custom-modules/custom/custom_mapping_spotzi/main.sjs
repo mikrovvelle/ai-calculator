@@ -59,6 +59,7 @@ function main(content, options) {
   if (doc && (doc instanceof Document || doc instanceof XMLDocument)) {
     doc = fn.head(doc.root);
   }
+  let source = doc;
 
   //get our instance, default shape of envelope is envelope/instance, else it'll return an empty object/array
   let instance = datahub.flow.flowUtils.getInstance(doc) || {};
@@ -92,22 +93,22 @@ function main(content, options) {
   let broker = !fn.empty(source.xpath('//broker')) ? fn.head(source.xpath('//broker')) : null;
   
   // Determine price range
-  switch(true) {
-    case $price < 100000:
-        $price_range = "0-100000";
-      break;
-      case $price < 150000:
-        $price_range = "100000-150000";
-      break;
-      case $price < 200000:
+  if ($price < 100000) {
+    $price_range = "0-100000";
+  } else {
+    if ($price < 150000) {
+      $price_range = "100000-150000";
+    } else {
+      if ($price < 200000) {
         $price_range = "150000-200000";
-      break;
-      case $price < 300000:
-        $price_range = "200000-300000";
-      break;
-      default:
-        $price_range = "300000+";
-  }
+      } else {
+        if ($price < 300000) {
+          $price_range = "200000-300000";
+        } else {
+          $price_range = "300000+";
+        }
+      }
+    }}
 
   // Determine time that the object has been for sale
 let oneDay = 24*60*60*1000;
