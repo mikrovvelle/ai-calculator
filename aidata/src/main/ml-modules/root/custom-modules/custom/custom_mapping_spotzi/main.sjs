@@ -73,18 +73,64 @@ function main(content, options) {
   // instance['$attachments'] = doc;
 
   //insert code to manipulate the instance, triples, headers, uri, context metadata, etc.
-  let id = !fn.empty(source.xpath('//cartodb_id')) ? fn.head(source.xpath('//cartodb_id'))) : null;
-  let postalcode = !fn.empty(source.xpath('//postalcode')) ? fn.head(source.xpath('//postalcode'))) : null;
-  let streetnr = !fn.empty(source.xpath('//housenr')) ? fn.head(source.xpath('//housenr'))) : null;
-  let streetnr_ext = !fn.empty(source.xpath('//housenrext')) ? fn.head(source.xpath('//housenrext'))) : null;
-  let city = !fn.empty(source.xpath('//city')) ? fn.head(source.xpath('//city'))) : null;
-  let price = !fn.empty(source.xpath('//price')) ? fn.head(source.xpath('//price'))) : null;
-  let rooms = !fn.empty(source.xpath('//rooms')) ? fn.head(source.xpath('//rooms'))) : null;
-  let square_footage_object = !fn.empty(source.xpath('//area')) ? fn.head(source.xpath('//area'))) : null;
-  let square_footage_lot = !fn.empty(source.xpath('//lotsize')) ? fn.head(source.xpath('//lotsize'))) : null;
-  let date_listed = !fn.empty(source.xpath('//listedsince')) ? formatDate(fn.head(source.xpath('//listedsince')))) : null;
-  let date_sold = !fn.empty(source.xpath('//dateofsale')) ? formatDate(fn.head(source.xpath('//dateofsale')))) : null;
-  let broker = !fn.empty(source.xpath('//broker')) ? fn.head(source.xpath('//broker'))) : null;
+  if (fn.empty(source.xpath('//cartodb_id'))) {
+    let id = fn.head(source.xpath('//cartodb_id'));
+  } else {
+    let id = null;
+  }
+
+  let postalcode = !fn.empty(source.xpath('//postalcode')) ? fn.head(source.xpath('//postalcode')) : null;
+  let streetnr = !fn.empty(source.xpath('//housenr')) ? fn.head(source.xpath('//housenr')) : null;
+  let streetnr_ext = !fn.empty(source.xpath('//housenrext')) ? fn.head(source.xpath('//housenrext')) : null;
+  let city = !fn.empty(source.xpath('//city')) ? fn.head(source.xpath('//city')) : null;
+  let price = !fn.empty(source.xpath('//price')) ? fn.head(source.xpath('//price')) : null;
+  let rooms = !fn.empty(source.xpath('//rooms')) ? fn.head(source.xpath('//rooms')) : null;
+  let square_footage_object = !fn.empty(source.xpath('//area')) ? fn.head(source.xpath('//area')) : null;
+  let square_footage_lot = !fn.empty(source.xpath('//lotsize')) ? fn.head(source.xpath('//lotsize')) : null;
+  let date_listed = !fn.empty(source.xpath('//listedsince')) ? formatDate(fn.head(source.xpath('//listedsince'))) : null;
+  let date_sold = !fn.empty(source.xpath('//dateofsale')) ? formatDate(fn.head(source.xpath('//dateofsale'))) : null;
+  let broker = !fn.empty(source.xpath('//broker')) ? fn.head(source.xpath('//broker')) : null;
+  
+  // Determine price range
+  switch(true) {
+    case $price < 100000:
+        $price_range = "0-100000";
+      break;
+      case $price < 150000:
+        $price_range = "100000-150000";
+      break;
+      case $price < 200000:
+        $price_range = "150000-200000";
+      break;
+      case $price < 300000:
+        $price_range = "200000-300000";
+      break;
+      default:
+        $price_range = "300000+";
+  }
+
+  // Determine time that the object has been for sale
+let oneDay = 24*60*60*1000;
+let firstDate = new date($date_sold);
+let secondDate = new date($date_listed);
+let time_for_sale_days = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
+
+  switch(true) {
+    case $time_for_sale_days < 10:
+        time_for_sale = "0-10";
+      break;
+      case $time_for_sale_days < 30:
+        time_for_sale = "10-30";
+      break;
+      case $time_for_sale_days < 60:
+        time_for_sale = "30-60";
+      break;
+      case $time_for_sale_days < 120:
+        time_for_sale = "60-120";
+      break;
+      default:
+        time_for_sale = "120+";
+  }
   
   //form our envelope here now, specifying our output format
   let envelope = datahub.flow.flowUtils.makeEnvelope(instance, headers, triples, outputFormat);

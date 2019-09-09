@@ -42,31 +42,28 @@
       "mappingName" : null
     },
     "2" : {
-      "name" : "objects_sold_mapping",
-      "description" : "",
+      "name" : "custom_mapping_spotzi",
+      "description" : "Objects Sold custom mapping",
       "options" : {
         "additionalCollections" : [ ],
-        "sourceQuery" : "cts.collectionQuery([\"ingest_csv\"])",
-        "mapping" : {
-          "name" : "IngestSpotziHouseSaleData-objects_sold_mapping",
-          "version" : 1
-        },
+        "sourceQuery" : "cts.collectionQuery([\"IngestCBSIndex\"])",
         "targetEntity" : "object_sold",
+        "collections" : [ "custom_mapping_spotzi", "object_sold" ],
         "sourceDatabase" : "data-hub-STAGING",
-        "collections" : [ "objects_sold_mapping", "object_sold" ],
-        "sourceCollection" : "ingest_csv",
+        "sourceCollection" : "IngestCBSIndex",
         "outputFormat" : "json",
         "targetDatabase" : "data-hub-FINAL"
       },
-      "customHook" : { },
+      "customHook" : null,
       "retryLimit" : 0,
       "batchSize" : 0,
       "threadCount" : 0,
-      "stepDefinitionName" : "default-mapping",
-      "stepDefinitionType" : "MAPPING",
-      "mappingStep" : true,
-      "customStep" : false,
-      "mappingName" : "IngestSpotziHouseSaleData-objects_sold_mapping"
+      "stepDefinitionName" : "custom_mapping_spotzi",
+      "stepDefinitionType" : "CUSTOM",
+      "modulePath" : "/custom-modules/custom/custom_mapping_spotzi/main.sjs",
+      "mappingStep" : false,
+      "customStep" : true,
+      "mappingName" : null
     }
   }
 }

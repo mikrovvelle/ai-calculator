@@ -1,0 +1,22 @@
+{
+  "language" : "zxx",
+  "name" : "custom_mapping_spotzi",
+  "description" : "Objects Sold custom mapping",
+  "type" : "CUSTOM",
+  "version" : 1,
+  "options" : {
+    "additionalCollections" : [ ],
+    "sourceQuery" : "cts.collectionQuery([\"IngestCBSIndex\"])",
+    "targetEntity" : "object_sold",
+    "collections" : [ "custom_mapping_spotzi", "object_sold" ],
+    "sourceDatabase" : "data-hub-STAGING",
+    "sourceCollection" : "IngestCBSIndex",
+    "outputFormat" : "json",
+    "targetDatabase" : "data-hub-FINAL"
+  },
+  "customHook" : { },
+  "modulePath" : "/custom-modules/custom/custom_mapping_spotzi/main.sjs",
+  "retryLimit" : 0,
+  "batchSize" : 100,
+  "threadCount" : 4
+}

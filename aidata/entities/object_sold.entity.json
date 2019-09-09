@@ -55,6 +55,14 @@
         "broker" : {
           "datatype" : "string",
           "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "price_range" : {
+          "datatype" : "string",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "time_for_sale" : {
+          "datatype" : "string",
+          "collation" : "http://marklogic.com/collation/codepoint"
         }
       }
     }
