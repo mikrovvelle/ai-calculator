@@ -18,9 +18,9 @@
       <search:element ns="http://marklogic.com/entity-services" name="title"/>
     </search:value>
   </search:constraint>
-  <search:constraint name="id">
+  <search:constraint name="object_id">
     <search:value>
-      <search:element ns="" name="id"/>
+      <search:element ns="" name="object_id"/>
     </search:value>
   </search:constraint>
   <search:constraint name="year">

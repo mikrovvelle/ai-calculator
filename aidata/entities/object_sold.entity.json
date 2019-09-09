@@ -6,14 +6,14 @@
   },
   "definitions" : {
     "object_sold" : {
-      "primaryKey" : "id",
+      "primaryKey" : "object_id",
       "required" : [ ],
       "pii" : [ ],
       "elementRangeIndex" : [ ],
       "rangeIndex" : [ ],
       "wordLexicon" : [ ],
       "properties" : {
-        "id" : {
+        "object_id" : {
           "datatype" : "string",
           "collation" : "http://marklogic.com/collation/codepoint"
         },

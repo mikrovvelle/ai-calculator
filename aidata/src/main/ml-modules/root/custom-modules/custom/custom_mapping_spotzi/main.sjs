@@ -19,10 +19,10 @@ const datahub = new DataHub();
 
 function formatDate(date) {
   //Transform incoming date to MarkLogic acceptable date
-  if (xdmp.castableAs("http://www.w3.org/2001/XMLSchema","date",$date)) {
-    return xs.dateTime($date)
+  if (xdmp.castableAs("http://www.w3.org/2001/XMLSchema","date",date)) {
+    return xs.dateTime(date)
   } else {
-    return xdmp.parseDateTime("[Y01]-[M01]-[D01]", $date)
+    return xdmp.parseDateTime("[Y01]-[M01]-[D01]", date)
   }
 }
 
@@ -59,7 +59,6 @@ function main(content, options) {
   if (doc && (doc instanceof Document || doc instanceof XMLDocument)) {
     doc = fn.head(doc.root);
   }
-  let source = doc;
 
   //get our instance, default shape of envelope is envelope/instance, else it'll return an empty object/array
   let instance = datahub.flow.flowUtils.getInstance(doc) || {};
@@ -74,65 +73,42 @@ function main(content, options) {
   // instance['$attachments'] = doc;
 
   //insert code to manipulate the instance, triples, headers, uri, context metadata, etc.
-  if (fn.empty(source.xpath('//cartodb_id'))) {
-    let id = fn.head(source.xpath('//cartodb_id'));
-  } else {
-    let id = null;
-  }
-
-  let postalcode = !fn.empty(source.xpath('//postalcode')) ? fn.head(source.xpath('//postalcode')) : null;
-  let streetnr = !fn.empty(source.xpath('//housenr')) ? fn.head(source.xpath('//housenr')) : null;
-  let streetnr_ext = !fn.empty(source.xpath('//housenrext')) ? fn.head(source.xpath('//housenrext')) : null;
-  let city = !fn.empty(source.xpath('//city')) ? fn.head(source.xpath('//city')) : null;
-  let price = !fn.empty(source.xpath('//price')) ? fn.head(source.xpath('//price')) : null;
-  let rooms = !fn.empty(source.xpath('//rooms')) ? fn.head(source.xpath('//rooms')) : null;
-  let square_footage_object = !fn.empty(source.xpath('//area')) ? fn.head(source.xpath('//area')) : null;
-  let square_footage_lot = !fn.empty(source.xpath('//lotsize')) ? fn.head(source.xpath('//lotsize')) : null;
-  let date_listed = !fn.empty(source.xpath('//listedsince')) ? formatDate(fn.head(source.xpath('//listedsince'))) : null;
-  let date_sold = !fn.empty(source.xpath('//dateofsale')) ? formatDate(fn.head(source.xpath('//dateofsale'))) : null;
-  let broker = !fn.empty(source.xpath('//broker')) ? fn.head(source.xpath('//broker')) : null;
+  let object_id = !fn.empty(doc.xpath('//cartodb_id')) ? fn.head(doc.xpath('//cartodb_id')) : null;
+  let postalcode = !fn.empty(doc.xpath('//postalcode')) ? fn.head(doc.xpath('//postalcode')) : null;
+  let streetnr = !fn.empty(doc.xpath('//housenr')) ? fn.head(doc.xpath('//housenr')) : null;
+  let streetnr_ext = !fn.empty(doc.xpath('//housenrext')) ? fn.head(doc.xpath('//housenrext')) : null;
+  let city = !fn.empty(doc.xpath('//city')) ? fn.head(doc.xpath('//city')) : null;
+  let price = !fn.empty(doc.xpath('//price')) ? fn.head(doc.xpath('//price')) : null;
+  let rooms = !fn.empty(doc.xpath('//rooms')) ? fn.head(doc.xpath('//rooms')) : null;
+  let square_footage_object = !fn.empty(doc.xpath('//area')) ? fn.head(doc.xpath('//area')) : null;
+  let square_footage_lot = !fn.empty(doc.xpath('//lotsize')) ? fn.head(doc.xpath('//lotsize')) : null;
+  let date_listed = !fn.empty(doc.xpath('//listedsince')) ? formatDate(fn.head(doc.xpath('//listedsince'))) : null;
+  let date_sold = !fn.empty(doc.xpath('//dateofsale')) ? formatDate(fn.head(doc.xpath('//dateofsale'))) : null;
+  let broker = !fn.empty(doc.xpath('//broker')) ? fn.head(doc.xpath('//broker')) : null;
   
   // Determine price range
-  if ($price < 100000) {
-    $price_range = "0-100000";
-  } else {
-    if ($price < 150000) {
-      $price_range = "100000-150000";
-    } else {
-      if ($price < 200000) {
-        $price_range = "150000-200000";
-      } else {
-        if ($price < 300000) {
-          $price_range = "200000-300000";
-        } else {
-          $price_range = "300000+";
-        }
-      }
-    }}
+  let price_range;
+  if (price < 100000) {price_range = "0-100000";} 
+    else if (price < 150000) {price_range = "100000-150000";} 
+      else if (price < 200000) {price_range = "150000-200000";} 
+        else if (price < 300000) {price_range = "200000-300000";}
+          else if (price > 300000) {price_range = "300000+";} 
+            else {price_range = "unknown";}
+
+  //Calculate number of days between list date and sold date
+  let oneDay = 24*60*60*1000;
+  let firstDate = new Date(date_sold);
+  let secondDate = new Date(date_listed);
+  let time_for_sale_days = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
 
   // Determine time that the object has been for sale
-let oneDay = 24*60*60*1000;
-let firstDate = new date($date_sold);
-let secondDate = new date($date_listed);
-let time_for_sale_days = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
-
-  switch(true) {
-    case $time_for_sale_days < 10:
-        time_for_sale = "0-10";
-      break;
-      case $time_for_sale_days < 30:
-        time_for_sale = "10-30";
-      break;
-      case $time_for_sale_days < 60:
-        time_for_sale = "30-60";
-      break;
-      case $time_for_sale_days < 120:
-        time_for_sale = "60-120";
-      break;
-      default:
-        time_for_sale = "120+";
-  }
-  
+  let time_for_sale;
+  if (time_for_sale_days < 10) {time_for_sale = "0-10";}  
+    else if (time_for_sale_days < 30) {time_for_sale = "10-30";}
+      else if (time_for_sale_days < 60) {time_for_sale = "30-60";}
+        else if (time_for_sale_days < 120) {time_for_sale = "60-120"}
+          else {time_for_sale = "120+";}
+ 
   //form our envelope here now, specifying our output format
   let envelope = datahub.flow.flowUtils.makeEnvelope(instance, headers, triples, outputFormat);
 
