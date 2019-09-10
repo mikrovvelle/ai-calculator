@@ -70,7 +70,7 @@ function main(content, options) {
   let headers = datahub.flow.flowUtils.getHeaders(doc) || {};
 
   //If you want to set attachments, uncomment here
-  // instance['$attachments'] = doc;
+  // instance['$attachments'] = instance['$instance'];
 
   //insert code to manipulate the instance, triples, headers, uri, context metadata, etc.
   let object_id = !fn.empty(doc.xpath('//cartodb_id')) ? fn.head(doc.xpath('//cartodb_id')) : null;
@@ -82,8 +82,8 @@ function main(content, options) {
   let rooms = !fn.empty(doc.xpath('//rooms')) ? fn.head(doc.xpath('//rooms')) : null;
   let square_footage_object = !fn.empty(doc.xpath('//area')) ? fn.head(doc.xpath('//area')) : null;
   let square_footage_lot = !fn.empty(doc.xpath('//lotsize')) ? fn.head(doc.xpath('//lotsize')) : null;
-  let date_listed = !fn.empty(doc.xpath('//listedsince')) ? formatDate(fn.head(doc.xpath('//listedsince'))) : null;
-  let date_sold = !fn.empty(doc.xpath('//dateofsale')) ? formatDate(fn.head(doc.xpath('//dateofsale'))) : null;
+  let date_listed = !fn.empty(doc.xpath('//listedsince')) ? fn.head(doc.xpath('//listedsince')) : null;
+  let date_sold = !fn.empty(doc.xpath('//dateofsale')) ? fn.head(doc.xpath('//dateofsale')) : null;
   let broker = !fn.empty(doc.xpath('//broker')) ? fn.head(doc.xpath('//broker')) : null;
   
   // Determine price range
@@ -108,7 +108,16 @@ function main(content, options) {
       else if (time_for_sale_days < 60) {time_for_sale = "30-60";}
         else if (time_for_sale_days < 120) {time_for_sale = "60-120"}
           else {time_for_sale = "120+";}
- 
+
+          
+  //create entity structure using the var's that are filled
+// return the instance object
+instance['$instance'] = {
+  '$type': 'object_sold',
+  '$version': '0.0.1',
+  'object_id': object_id
+};
+  
   //form our envelope here now, specifying our output format
   let envelope = datahub.flow.flowUtils.makeEnvelope(instance, headers, triples, outputFormat);
 
