@@ -5,5 +5,12 @@
     "width" : 350,
     "height" : 144,
     "vertices" : { }
+  },
+  "spotzi" : {
+    "x" : 30,
+    "y" : 145,
+    "width" : 350,
+    "height" : 122,
+    "vertices" : { }
   }
 }
