@@ -17,9 +17,10 @@ docker run -d --name=ai -it -p 8000-8020:8000-8020 \
 java -jar marklogic-datahub-5.0.2.war
 
 # Ingest CBS data
+Update the path for the cbs_index ingest step to your projectdirectory/data/cbs
+Update the path for the objects_sold ingest step to your projectdirectory/data/SpotziHouseSales
 Run the cbs_index flow
 Run the objects_sold flow
-
 
 # Retrieve from Data Hub
 ## Convert SQL to Optic plan
