@@ -26,13 +26,13 @@
         "targetDatabase" : "data-hub-STAGING"
       },
       "customHook" : { },
-      "retryLimit" : 0,
-      "batchSize" : 0,
-      "threadCount" : 0,
+      "retryLimit" : null,
+      "batchSize" : null,
+      "threadCount" : null,
       "stepDefinitionName" : "default-ingestion",
       "stepDefinitionType" : "INGESTION",
       "fileLocations" : {
-        "inputFilePath" : "/Users/mderu/projects/ai-calculator/data/cbs",
+        "inputFilePath" : "/MarkLogic/Projects/ai-calculator/data/cbs",
         "inputFileType" : "csv",
         "outputURIReplacement" : "",
         "separator" : ";"
@@ -59,9 +59,9 @@
         "targetDatabase" : "data-hub-FINAL"
       },
       "customHook" : { },
-      "retryLimit" : null,
-      "batchSize" : null,
-      "threadCount" : null,
+      "retryLimit" : 0,
+      "batchSize" : 0,
+      "threadCount" : 0,
       "stepDefinitionName" : "default-mapping",
       "stepDefinitionType" : "MAPPING",
       "mappingStep" : true,

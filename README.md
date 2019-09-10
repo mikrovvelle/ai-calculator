@@ -2,19 +2,24 @@
 This is a demo for operationalizing AI and Calculators in MarkLogic Data Hub
 
 # Run MarkLogic
+Login hub.docker.com
+"Purchase" https://hub.docker.com/_/marklogic with your user for free
+
 docker login -u <username>
 docker run -d --name=ai -it -p 8000-8020:8000-8020 \
      -v ~/aidata:/var/opt/MarkLogic \
      -e MARKLOGIC_INIT=true \
      -e MARKLOGIC_ADMIN_USERNAME=admin \
      -e MARKLOGIC_ADMIN_PASSWORD=admin \
-     store/marklogicdb/marklogic-server-centos:10.0-1.1-dev
+     store/marklogicdb/marklogic-server:10.0-1-dev-centos
 
 # Starting the data hub framework
-` java -jar marklogic-datahub-5.0.2.war
+java -jar marklogic-datahub-5.0.2.war
 
 # Ingest CBS data
 Run the cbs_index flow
+Run the objects_sold flow
+
 
 # Retrieve from Data Hub
 ## Convert SQL to Optic plan
