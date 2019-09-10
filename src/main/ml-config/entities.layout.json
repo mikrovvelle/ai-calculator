@@ -6,11 +6,19 @@
     "height" : 144,
     "vertices" : { }
   },
+<<<<<<< HEAD
+  "spotzi" : {
+    "x" : 30,
+    "y" : 145,
+    "width" : 350,
+    "height" : 122,
+=======
   "objects_sold" : {
     "x" : 445,
     "y" : 118,
     "width" : 350,
     "height" : 364,
+>>>>>>> 12003d371a73e442f0580fbfb57b8ded4653d3be
     "vertices" : { }
   }
 }
