@@ -1,5 +1,5 @@
 {
-  "name" : "IngestCBSIndex",
+  "name" : "objects_sold",
   "description" : "",
   "batchSize" : 100,
   "threadCount" : 4,
@@ -8,17 +8,21 @@
   "version" : 0,
   "steps" : {
     "1" : {
-      "name" : "IngestCBSIndex",
+      "name" : "ingest_objects_sold",
       "description" : "",
       "options" : {
         "additionalCollections" : [ ],
+        "headers" : {
+          "sources" : [ {
+            "name" : "objects_sold"
+          } ],
+          "createdOn" : "currentDateTime",
+          "createdBy" : "currentUser"
+        },
         "sourceQuery" : "cts.collectionQuery([])",
-        "targetEntity" : "",
-        "collections" : [ "IngestCBSIndex" ],
-        "sourceDatabase" : "",
+        "collections" : [ "ingest_objects_sold" ],
         "permissions" : "rest-reader,read,rest-writer,update",
         "outputFormat" : "json",
-        "sourceCollection" : "",
         "targetDatabase" : "data-hub-STAGING"
       },
       "customHook" : { },
@@ -28,10 +32,10 @@
       "stepDefinitionName" : "default-ingestion",
       "stepDefinitionType" : "INGESTION",
       "fileLocations" : {
-        "inputFilePath" : "/MarkLogic/Projects/ai-calculator/aidata",
-        "inputFileType" : "json",
+        "inputFilePath" : "/MarkLogic/Projects/ai-calculator/data/SpotziHouseSales",
+        "inputFileType" : "csv",
         "outputURIReplacement" : "",
-        "separator" : ","
+        "separator" : ";"
       },
       "mappingStep" : false,
       "customStep" : false,

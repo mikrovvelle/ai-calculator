@@ -5,5 +5,12 @@
     "width" : 350,
     "height" : 144,
     "vertices" : { }
+  },
+  "objects_sold" : {
+    "x" : 445,
+    "y" : 118,
+    "width" : 350,
+    "height" : 364,
+    "vertices" : { }
   }
 }

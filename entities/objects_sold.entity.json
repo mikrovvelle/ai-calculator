@@ -1,12 +1,12 @@
 {
   "info" : {
-    "title" : "object_sold",
+    "title" : "objects_sold",
     "version" : "0.0.1",
-    "baseUri" : "http://example.org/"
+    "baseUri" : "http://example.org/",
+    "description" : "Sold objects"
   },
   "definitions" : {
-    "object_sold" : {
-      "primaryKey" : "object_id",
+    "objects_sold" : {
       "required" : [ ],
       "pii" : [ ],
       "elementRangeIndex" : [ ],
@@ -22,8 +22,7 @@
           "collation" : "http://marklogic.com/collation/codepoint"
         },
         "streetnr" : {
-          "datatype" : "string",
-          "collation" : "http://marklogic.com/collation/codepoint"
+          "datatype" : "int"
         },
         "streetnr_ext" : {
           "datatype" : "string",
@@ -34,33 +33,24 @@
           "collation" : "http://marklogic.com/collation/codepoint"
         },
         "price" : {
-          "datatype" : "int",
-          "collation" : "http://marklogic.com/collation/codepoint"
+          "datatype" : "decimal"
         },
         "rooms" : {
-          "datatype" : "int"
+          "datatype" : "decimal"
         },
         "square_footage_object" : {
-          "datatype" : "int"
+          "datatype" : "decimal"
         },
         "square_footage_lot" : {
-          "datatype" : "int"
+          "datatype" : "decimal"
         },
         "date_listed" : {
-          "datatype" : "date"
+          "datatype" : "dateTime"
         },
         "date_sold" : {
-          "datatype" : "date"
+          "datatype" : "dateTime"
         },
         "broker" : {
-          "datatype" : "string",
-          "collation" : "http://marklogic.com/collation/codepoint"
-        },
-        "price_range" : {
-          "datatype" : "string",
-          "collation" : "http://marklogic.com/collation/codepoint"
-        },
-        "time_for_sale" : {
           "datatype" : "string",
           "collation" : "http://marklogic.com/collation/codepoint"
         }
