@@ -1,6 +1,9 @@
 # ai-calculator
 This is a demo for operationalizing AI and Calculators in MarkLogic Data Hub
 
+# prerequisits 
+Download Marklogic 
+
 # Run MarkLogic
 Login hub.docker.com
 "Purchase" https://hub.docker.com/_/marklogic with your user for free

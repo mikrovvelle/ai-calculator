@@ -64,8 +64,9 @@ function main(content, options) {
   }
 
   //get our instance, default shape of envelope is envelope/instance, else it'll return an empty object/array
-  let instance = datahub.flow.flowUtils.getInstance(doc) || {};
-
+  //let instance = datahub.flow.flowUtils.getInstance(doc) || {};
+  let instance = datahub.flow.flowUtils.getInstance(doc).toObject() || {};
+  
   // get triples, return null if empty or cannot be found
   let triples = datahub.flow.flowUtils.getTriples(doc) || [];
 
@@ -73,11 +74,39 @@ function main(content, options) {
   let headers = datahub.flow.flowUtils.getHeaders(doc) || {};
 
   //If you want to set attachments, uncomment here
-  // instance['$attachments'] = doc;
+  instance["object_id"] = !fn.empty(doc.xpath('//cartodb_id')) ? fn.head(doc.xpath('//cartodb_id')) : null;
+  instance["postalcode"] = !fn.empty(doc.xpath('//postalcode')) ? fn.head(doc.xpath('//postalcode')) : null;
+  instance["streetnr"] = !fn.empty(doc.xpath('//housenr')) ? fn.head(doc.xpath('//housenr')) : null;
+  instance["streetnr_ext"] = !fn.empty(doc.xpath('//housenrext')) ? fn.head(doc.xpath('//housenrext')) : null;
+  instance["city"] = !fn.empty(doc.xpath('//city')) ? fn.head(doc.xpath('//city')) : null;
+  instance["price"] = !fn.empty(doc.xpath('//price')) ? fn.head(doc.xpath('//price')) : null;
+  instance["rooms"] = !fn.empty(doc.xpath('//rooms')) ? fn.head(doc.xpath('//rooms')) : null;
+  instance["square_footage_object"] = !fn.empty(doc.xpath('//area')) ? fn.head(doc.xpath('//area')) : null;
+  instance["square_footage_lot"] = !fn.empty(doc.xpath('//lotsize')) ? fn.head(doc.xpath('//lotsize')) : null;
+  instance["date_listed"] = !fn.empty(doc.xpath('//listedsince')) ? fn.head(doc.xpath('//listedsince')) : null;
+  instance["date_sold"] = !fn.empty(doc.xpath('//dateofsale')) ? fn.head(doc.xpath('//dateofsale')) : null;
+  instance["broker"] = !fn.empty(doc.xpath('//broker')) ? fn.head(doc.xpath('//broker')) : null;
+  
+  // Determine price range
+  if (instance["price"] < 100000) {instance["price_range"] = "0-100000";} 
+    else if (instance["price"] < 150000) {instance["price_range"] = "100000-150000";} 
+      else if (instance["price"] < 200000) {instance["price_range"] = "150000-200000";} 
+        else if (instance["price"] < 300000) {instance["price_range"] = "200000-300000";}
+          else if (instance["price"] > 300000) {instance["price_range"] = "300000+";} 
+            else {price_range = "unknown";}
 
+  // Determine time that the object has been for sale
+  let oneDay = 24*60*60*1000;
+  let firstDate = new Date(instance["date_listed"]);
+  let secondDate = new Date(instance["date_sold"]);
+  let time_for_sale_days = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
 
-  //insert code to manipulate the instance, triples, headers, uri, context metadata, etc.
-
+  // Determine time that the object has been for sale
+  if (time_for_sale_days < 10) {instance["time_for_sale"] = "0-10";}  
+    else if (time_for_sale_days < 30) {instance["time_for_sale"] = "10-30";}
+      else if (time_for_sale_days < 60) {instance["time_for_sale"] = "30-60";}
+        else if (time_for_sale_days < 120) {instance["time_for_sale"] = "60-120"}
+          else {instance["time_for_sale"] = "120+";}
 
   //form our envelope here now, specifying our output format
   let envelope = datahub.flow.flowUtils.makeEnvelope(instance, headers, triples, outputFormat);
