@@ -6,6 +6,7 @@
   },
   "definitions" : {
     "spotzi" : {
+      "primaryKey" : "object_id",
       "required" : [ ],
       "pii" : [ ],
       "elementRangeIndex" : [ ],

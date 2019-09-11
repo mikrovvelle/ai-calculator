@@ -23,6 +23,11 @@
       <search:element ns="" name="year"/>
     </search:value>
   </search:constraint>
+  <search:constraint name="object_id">
+    <search:value>
+      <search:element ns="" name="object_id"/>
+    </search:value>
+  </search:constraint>
   <!--Uncomment to return no results for a blank search, rather than the default of all results
  <search:term xmlns:search="http://marklogic.com/appservices/search">
   <search:empty apply="no-results"/>
@@ -35,11 +40,7 @@
   <search:search-option>unfiltered</search:search-option>
   <!--Modify document extraction to change results returned-->
   <search:extract-document-data selected="include">
-<<<<<<< HEAD
-    <search:extract-path xmlns:es="http://marklogic.com/entity-services">//*:instance/(cbs_index|spotzi)</search:extract-path>
-=======
-    <search:extract-path xmlns:es="http://marklogic.com/entity-services">//*:instance/(objects_sold|cbs_index)</search:extract-path>
->>>>>>> 12003d371a73e442f0580fbfb57b8ded4653d3be
+    <search:extract-path xmlns:es="http://marklogic.com/entity-services">//*:instance/(objects_sold|cbs_index|spotzi)</search:extract-path>
   </search:extract-document-data>
   <!--Change or remove this additional-query to broaden search beyond entity instance documents-->
   <!--To return facets, change this option to 'true' and edit constraints-->

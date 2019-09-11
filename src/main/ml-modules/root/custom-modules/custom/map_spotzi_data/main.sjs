@@ -64,7 +64,8 @@ function main(content, options) {
   }
 
   //get our instance, default shape of envelope is envelope/instance, else it'll return an empty object/array
-  let instance = datahub.flow.flowUtils.getInstance(doc) || {};
+  //let instance = datahub.flow.flowUtils.getInstance(doc) || {};
+  let instance = datahub.flow.flowUtils.getInstance(doc).toObject() || {};
 
   // get triples, return null if empty or cannot be found
   let triples = datahub.flow.flowUtils.getTriples(doc) || [];
@@ -72,12 +73,17 @@ function main(content, options) {
   //gets headers, return null if cannot be found
   let headers = datahub.flow.flowUtils.getHeaders(doc) || {};
 
+  //insert code to manipulate the instance, triples, headers, uri, context metadata, etc.
+  let object_id = !fn.empty(doc.xpath('//cartodb_id')) ? xs.string(fn.head(doc.xpath('//cartodb_id'))) : null;
+  
+  instance = {
+    "spotzi": {
+      "object_id": object_id
+      }
+    };
+
   //If you want to set attachments, uncomment here
   instance['$attachments'] = doc;
-
-
-  //insert code to manipulate the instance, triples, headers, uri, context metadata, etc.
-
 
   //form our envelope here now, specifying our output format
   let envelope = datahub.flow.flowUtils.makeEnvelope(instance, headers, triples, outputFormat);
