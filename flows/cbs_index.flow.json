@@ -26,13 +26,13 @@
         "targetDatabase" : "data-hub-STAGING"
       },
       "customHook" : { },
-      "retryLimit" : null,
-      "batchSize" : null,
-      "threadCount" : null,
+      "retryLimit" : 0,
+      "batchSize" : 0,
+      "threadCount" : 0,
       "stepDefinitionName" : "default-ingestion",
       "stepDefinitionType" : "INGESTION",
       "fileLocations" : {
-        "inputFilePath" : "/MarkLogic/Projects/ai-calculator/data/cbs",
+        "inputFilePath" : "/Users/Shared/aiingest/data/cbs",
         "inputFileType" : "csv",
         "outputURIReplacement" : "",
         "separator" : ";"
@@ -49,7 +49,7 @@
         "sourceQuery" : "cts.collectionQuery([\"ingest_cbs_index\"])",
         "mapping" : {
           "name" : "cbs_index-harmonize_cbs_index",
-          "version" : 2
+          "version" : 4
         },
         "targetEntity" : "cbs_index",
         "sourceDatabase" : "data-hub-STAGING",
@@ -59,9 +59,9 @@
         "targetDatabase" : "data-hub-FINAL"
       },
       "customHook" : { },
-      "retryLimit" : 0,
-      "batchSize" : 0,
-      "threadCount" : 0,
+      "retryLimit" : null,
+      "batchSize" : null,
+      "threadCount" : null,
       "stepDefinitionName" : "default-mapping",
       "stepDefinitionType" : "MAPPING",
       "mappingStep" : true,
