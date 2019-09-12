@@ -20,7 +20,7 @@ docker run -d -it -p 8000-8020:8000-8020 \
      -e MARKLOGIC_INIT=true \
      -e MARKLOGIC_ADMIN_USERNAME=admin \
      -e MARKLOGIC_ADMIN_PASSWORD=admin \
-     --name aidata3 store/marklogicdb/marklogic-server:10.0-1-dev-centos
+     --name aidata store/marklogicdb/marklogic-server:10.0-1-dev-centos
 ```
 
 ## Install CNTK and Jupyter Docker
