@@ -35,6 +35,14 @@ docker run -d -p 8888:8888 \
      -t microsoft/cntk:2.3-cpu-python3.5
 ```
 
+## Switch the Jupyter's Keras configuration to use CNTK
+
+Keras is configured to use Tensorflow by default. You need to change the `~/.keras/keras.json` file in the Jupyter docker container so that it uses CNTK.
+
+```sh
+docker cp keras.json cntk-jupyter-notebooks:/root/.keras/keras.json
+```
+
 ## Starting the data hub framework
 
 On the host machine (use Java 8), leave this command running in its own shell.
